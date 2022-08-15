@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a32e2a2c76cc854db59c3371add13b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentFruit: {fileID: 666475911018495912}
 --- !u!1 &3883881074899330681
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +263,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 1
 --- !u!114 &666475911018495912
 MonoBehaviour:
@@ -403,3 +404,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a32e2a2c76cc854db59c3371add13b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentFruit: {fileID: 666475911018495912}

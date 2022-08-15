@@ -7,11 +7,14 @@ using Random = UnityEngine.Random;
 
 public class Fruit : MonoBehaviour
 {
+    private Rigidbody rb;
+    
     
     private void Start()
     {
-        GetComponent<Rigidbody>().AddForce(RandomForce());
-        GetComponent<Rigidbody>().AddTorque(RandomTorque());
+        rb = gameObject.GetComponent<Rigidbody>();
+        rb.AddForce(RandomForce());
+        rb.AddTorque(RandomTorque());
     }
 
     
@@ -26,14 +29,24 @@ public class Fruit : MonoBehaviour
 
     private void CutFruit()
     {
-        GetComponentInChildren<CuttedFruit>(true).SeparateChild();
         foreach (var piece in GetComponentsInChildren<CuttedFruitPiece>(true))
         {
-            piece.InheritMomentum( GetComponent<Rigidbody>().velocity, GetComponent<Rigidbody>().angularVelocity );
+            piece.SeparateChildren();
         }
+        
         Destroy(gameObject);
+        
+    }
+
+    public Vector3 DetectLastVelocity()
+    {
+        return rb.velocity;
     }
     
+    public Vector3 DetectLastAngularVelocity()
+    {
+        return rb.angularVelocity;
+    }
     
 
     private Vector3 RandomForce()
@@ -45,9 +58,9 @@ public class Fruit : MonoBehaviour
 
     private Vector3 RandomTorque()
     {
-        var xTorque = Random.Range(-20, 20);
-        var yTorque = Random.Range(-20, 20);
-        var zTorque = Random.Range(-20, 20);
+        var xTorque = Random.Range(-50, 50);
+        var yTorque = Random.Range(-50, 50);
+        var zTorque = Random.Range(-50, 50);
 
         return new Vector3(xTorque, yTorque, zTorque);
     }

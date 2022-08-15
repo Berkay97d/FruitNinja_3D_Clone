@@ -62,9 +62,6 @@ public class ItemGenerator : MonoBehaviour
                 return;
             }
         }
-        
-        
-        
     }
 
     private Vector3 RandomSpawnPosition()
