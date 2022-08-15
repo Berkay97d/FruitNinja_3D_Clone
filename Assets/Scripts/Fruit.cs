@@ -7,15 +7,14 @@ using Random = UnityEngine.Random;
 
 public class Fruit : MonoBehaviour
 {
-    [SerializeField] private GameObject CuttedFruit;
-   
-
+    
     private void Start()
     {
         GetComponent<Rigidbody>().AddForce(RandomForce());
         GetComponent<Rigidbody>().AddTorque(RandomTorque());
     }
 
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -23,6 +22,19 @@ public class Fruit : MonoBehaviour
             CutFruit();
         }
     }
+    
+
+    private void CutFruit()
+    {
+        GetComponentInChildren<CuttedFruit>(true).SeparateChild();
+        foreach (var piece in GetComponentsInChildren<CuttedFruitPiece>(true))
+        {
+            piece.InheritMomentum( GetComponent<Rigidbody>().velocity, GetComponent<Rigidbody>().angularVelocity );
+        }
+        Destroy(gameObject);
+    }
+    
+    
 
     private Vector3 RandomForce()
     {
@@ -39,16 +51,5 @@ public class Fruit : MonoBehaviour
 
         return new Vector3(xTorque, yTorque, zTorque);
     }
-
-    private void CutFruit()
-    {
-        
-        Instantiate(CuttedFruit, transform.position, Quaternion.identity);
-        CuttedFruit.SetActive(true);
-        
-        Destroy(gameObject);
-    }
-
-
     
 }

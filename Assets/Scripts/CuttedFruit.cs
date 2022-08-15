@@ -8,15 +8,32 @@ public class CuttedFruit : MonoBehaviour
 {
     private void Start()
     {
-
         foreach (var cutted in gameObject.GetComponentsInChildren<Rigidbody>() )
         {
             cutted.AddForce(RandomForce());
             cutted.AddTorque(RandomTorque());
         }
-        
     }
 
+
+    private void Update()
+    {
+        DestroyEmptyParent();
+    }
+
+    public void SeparateChild()
+    {
+        gameObject.SetActive(true);
+        gameObject.transform.SetParent(null);
+    }
+
+    private void DestroyEmptyParent()
+    {
+        if (transform.childCount.Equals(0))
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private Vector3 RandomForce()
     {
