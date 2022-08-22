@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CuttedFruitPiece : MonoBehaviour
 {
@@ -14,7 +16,22 @@ public class CuttedFruitPiece : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         InheritMomentum();
         Fragmentation();
+        
+    }
 
+    private void YokOl(Game.GameOverResponse gameOverResponse)
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        Game.OnGameOver += YokOl;
+    }
+
+    private void OnDisable()
+    {
+        Game.OnGameOver -= YokOl;
     }
 
     public void SeparateChildren()
@@ -31,8 +48,12 @@ public class CuttedFruitPiece : MonoBehaviour
 
     private void Fragmentation()
     {
-        var xForce = Random.Range(-30, 30);
+        var minxForce = Random.Range(-300, -200);
+        var maxForce = Random.Range(200, 300);
+        var xForce = Random.Range(minxForce, maxForce);
         rb.AddForce(xForce,0,0);
     }
+
+    
     
 }

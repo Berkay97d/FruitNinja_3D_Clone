@@ -7,36 +7,48 @@ using Random = UnityEngine.Random;
 
 public class Fruit : MonoBehaviour
 {
+    
     private Rigidbody rb;
-    
-    
+
+
     private void Start()
     {
+        
+        
         rb = gameObject.GetComponent<Rigidbody>();
         rb.AddForce(RandomForce());
         rb.AddTorque(RandomTorque());
+        
     }
 
-    
-    void Update()
+    private void YokOl(Game.GameOverResponse gameOverResponse)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CutFruit();
-        }
+        Destroy(gameObject);
     }
-    
 
-    private void CutFruit()
+    private void OnEnable()
+    {
+        Game.OnGameOver += YokOl;
+    }
+
+    private void OnDisable()
+    {
+        Game.OnGameOver -= YokOl;
+    }
+
+
+    public void CutFruit()
     {
         foreach (var piece in GetComponentsInChildren<CuttedFruitPiece>(true))
         {
             piece.SeparateChildren();
         }
         
+        Game.IncreaseScore(10);
         Destroy(gameObject);
-        
     }
+    
+    
 
     public Vector3 DetectLastVelocity()
     {
@@ -51,18 +63,19 @@ public class Fruit : MonoBehaviour
 
     private Vector3 RandomForce()
     {
-        var xForce = Random.Range(-40, 40);
-        var yForce = Random.Range(600, 750);
+        var xForce = Random.Range(-35, 35);
+        var yForce = Random.Range(600, 700);
         return new Vector3(xForce, yForce, 0);
     }
 
     private Vector3 RandomTorque()
     {
-        var xTorque = Random.Range(-50, 50);
-        var yTorque = Random.Range(-50, 50);
-        var zTorque = Random.Range(-50, 50);
+        var xTorque = Random.Range(-100, 100);
+        var yTorque = Random.Range(-100, 100);
+        var zTorque = Random.Range(-100, 100);
 
         return new Vector3(xTorque, yTorque, zTorque);
     }
+    
     
 }

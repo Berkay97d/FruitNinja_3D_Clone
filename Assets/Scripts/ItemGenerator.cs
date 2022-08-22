@@ -10,16 +10,14 @@ public class ItemGenerator : MonoBehaviour
     [SerializeField] private GameObject[] commonFruits;
     [SerializeField] private GameObject rareFruit;
     [SerializeField] private GameObject bomb;
-
-
-    private void Start()
-    {
-        InvokeRepeating(nameof(SpawnFruit),0.1f,3.5f);
-    }
+    
+    
     
 
     private void SpawnFruit()
     {
+        
+        
         var fruitNumberSelector = Random.Range(1, 7);
         
 
@@ -45,15 +43,17 @@ public class ItemGenerator : MonoBehaviour
         while (true)
         {
             var fruitTypeSelector = Random.Range(0, 100);
+            var randomPos = RandomSpawnPosition();
+            var spawnPos = new Vector3(randomPos.x, randomPos.y, (counter * 3) - 3 );
             counter++;
 
             switch (fruitTypeSelector)
             {
-                case < 90:
-                    Instantiate(commonFruits[ fruitTypeSelector % 8 ], RandomSpawnPosition(),Quaternion.identity );
+                case < 75:
+                    Instantiate(commonFruits[ fruitTypeSelector % 8 ], spawnPos,Quaternion.identity );
                     break;
                 default:
-                    Instantiate(bomb, RandomSpawnPosition(),Quaternion.identity );
+                    Instantiate(bomb, spawnPos,Quaternion.identity );
                     break;
             }
 
@@ -63,13 +63,46 @@ public class ItemGenerator : MonoBehaviour
             }
         }
     }
-
+    
     private Vector3 RandomSpawnPosition()
     {
-        var xPos = Random.Range(-7, 7);
-
+        var xPos = Random.Range(-8, 8);
+        
         return new Vector3(xPos, -5.5f, 0);
     }
+
+    
+
+
+    private void StopThrowing()
+    {
+        CancelInvoke();
+    }
+
+    private void OnBombBum()
+    {
+        StopThrowing();
+    }
+
+    private void OnGameStarted()
+    {
+        InvokeRepeating(nameof(SpawnFruit),0.1f,3.5f);
+    }
+
+    private void OnEnable()
+    {
+        Bomb.BombBumed += OnBombBum;
+        Game.OnGameStart += OnGameStarted;
+    }
+
+    private void OnDisable()
+    {
+        Bomb.BombBumed -= OnBombBum;
+        Game.OnGameStart -= OnGameStarted;
+    }
+
+
+    
 
     
     
