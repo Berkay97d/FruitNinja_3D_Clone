@@ -9,7 +9,7 @@ public class Destroyer : MonoBehaviour
     {
         if (other.CompareTag("Full"))
         {
-            Debug.Log("KAÇIRDIN AMK");
+            Game.life--;
         }
         
         Destroy(other.gameObject);

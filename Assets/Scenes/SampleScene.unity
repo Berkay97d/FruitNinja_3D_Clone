@@ -1695,6 +1695,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGamePanel: {fileID: 1596087071}
   score: {fileID: 1405028152}
+  healthL: {fileID: 609519966}
+  healthM: {fileID: 24799097}
+  healthR: {fileID: 245762116}
 --- !u!1 &609519966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,7 +3406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1596087072
 RectTransform:
   m_ObjectHideFlags: 0

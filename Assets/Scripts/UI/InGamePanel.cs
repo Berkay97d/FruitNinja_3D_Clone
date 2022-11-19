@@ -9,7 +9,45 @@ public class InGamePanel : MonoBehaviour
     [SerializeField] private GameObject inGamePanel;
     [SerializeField] private TMP_Text score;
 
-    
+    [SerializeField] private GameObject healthL;
+    [SerializeField] private GameObject healthM;
+    [SerializeField] private GameObject healthR;
+
+
+    private void Update()
+    {
+        ControlHealth();
+        
+    }
+
+    private void ControlHealth()
+    {
+        if (Game.life == 3)
+        {
+            healthL.SetActive(false);
+            healthM.SetActive(false);
+            healthR.SetActive(false);
+        }
+        else if (Game.life == 2)
+        {
+            healthL.SetActive(false);
+            healthM.SetActive(false);
+            healthR.SetActive(true);
+        }
+        else if (Game.life == 1)
+        {
+            healthL.SetActive(false);
+            healthM.SetActive(true);
+            healthR.SetActive(true);
+        }
+        else if (Game.life == 0)
+        {
+            healthL.SetActive(true);
+            healthM.SetActive(true);
+            healthR.SetActive(true);
+        }
+        
+    }
     
     private void ActivatePanel()
     {

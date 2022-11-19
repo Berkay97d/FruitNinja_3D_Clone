@@ -15,6 +15,11 @@ public class Blade : MonoBehaviour
 
     private void Update()
     {
+        if (Game.life == 0)
+        {
+            Bomb.BombBumed();
+        }
+        
         MoveBlade();
     }
     

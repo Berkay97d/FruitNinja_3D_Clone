@@ -15,7 +15,7 @@ public static class Game
     public static UnityAction OnGameRestart;
     public static UnityAction<ScoreChangeResponse> OnScoreChanged;
     public static int Score { get; private set;}
-
+    public static int life = 3;
     public static int HighScore
     {
         get => PlayerPrefs.GetInt(HighScoreKey, DefaultHighScoreValue); 

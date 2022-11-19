@@ -25,6 +25,7 @@ public class GameOverPanel : MonoBehaviour
     public void RestartGame()
     {
         Game.Restart();
+        Game.life = 3;
     }
 
     private void UpdateScore(int score)
